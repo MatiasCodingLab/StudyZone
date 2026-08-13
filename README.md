@@ -29,7 +29,8 @@ where you can!
 11. [Setting it up on a child's laptop](#setting-it-up-on-a-childs-laptop)
 12. [Installing as an app (PWA)](#installing-as-an-app-pwa)
 13. [Progress is stored separately on each device](#progress-is-stored-separately-on-each-device)
-14. [Troubleshooting](#troubleshooting)
+14. [License](#license)
+15. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -70,6 +71,12 @@ run it on separate devices/browser profiles - see [Progress is stored separately
 - **vite-plugin-pwa** (optional installable app support)
 
 No backend, no database, no external API calls, and no login - everything runs entirely in the browser.
+
+## License
+
+Capitals Quest is released under the **MIT License**. You may use, copy, modify, and share the project, including for
+personal or commercial projects, as long as the copyright and license notice are included. See the [LICENSE](LICENSE)
+file for the complete text.
 
 ## Running it on your own computer
 
