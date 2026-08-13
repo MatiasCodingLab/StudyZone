@@ -1,0 +1,154 @@
+.panda {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+  outline-offset: 4px;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.panda:focus-visible {
+  outline: 3px solid #4f46e5;
+  border-radius: 50%;
+}
+
+.panda__svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.panda__shadow {
+  fill: rgba(20, 20, 40, 0.12);
+}
+
+/* --- Idle: gentle breathing + occasional blink --- */
+.panda--animated.panda--idle .panda__body,
+.panda--animated.panda--idle .panda__head {
+  animation: panda-breathe 3.4s ease-in-out infinite;
+}
+.panda--animated.panda--idle .panda__eye {
+  animation: panda-blink 5.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* --- Thinking --- */
+.panda--animated.panda--thinking .panda__head {
+  animation: panda-tilt 2.4s ease-in-out infinite;
+}
+.panda--thinking .panda__pupil {
+  transform: translate(1.5px, -1.5px);
+}
+
+/* --- Excited (timer running low) --- */
+.panda--animated.panda--excited .panda__head,
+.panda--animated.panda--excited .panda__body {
+  animation: panda-wiggle 0.5s ease-in-out infinite;
+}
+
+/* --- Celebrating --- */
+.panda--animated.panda--celebrating {
+  animation: panda-jump 0.6s ease-in-out infinite;
+}
+.panda--animated.panda--celebrating .panda__arm--left {
+  animation: panda-arm-wave-left 0.5s ease-in-out infinite;
+}
+.panda--animated.panda--celebrating .panda__arm--right {
+  animation: panda-arm-wave-right 0.5s ease-in-out infinite;
+}
+
+/* --- Supportive (wrong answer - never sad) --- */
+.panda--animated.panda--supportive .panda__head {
+  animation: panda-nod 1.6s ease-in-out infinite;
+}
+
+/* --- Shrug (skip) --- */
+.panda--animated.panda--shrug .panda__arm--left {
+  animation: panda-shrug-left 1s ease-in-out;
+}
+.panda--animated.panda--shrug .panda__arm--right {
+  animation: panda-shrug-right 1s ease-in-out;
+}
+
+/* --- Tap interaction --- */
+.panda--tap {
+  animation: panda-tap-bounce 0.7s ease-in-out;
+}
+
+@keyframes panda-breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-1.5px) scale(1.01); }
+}
+
+@keyframes panda-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+@keyframes panda-tilt {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-4deg); }
+}
+
+@keyframes panda-wiggle {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(-1.5px) rotate(-2deg); }
+  75% { transform: translateX(1.5px) rotate(2deg); }
+}
+
+@keyframes panda-jump {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-14px); }
+  60% { transform: translateY(-14px); }
+}
+
+@keyframes panda-arm-wave-left {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-30deg); }
+}
+
+@keyframes panda-arm-wave-right {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(30deg); }
+}
+
+@keyframes panda-nod {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes panda-shrug-left {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  40% { transform: translateY(-6px) rotate(-15deg); }
+}
+
+@keyframes panda-shrug-right {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  40% { transform: translateY(-6px) rotate(15deg); }
+}
+
+@keyframes panda-tap-bounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(-8deg); }
+  50% { transform: translateY(0) rotate(6deg); }
+  75% { transform: translateY(-4px) rotate(-3deg); }
+}
+
+.panda__arm--left,
+.panda__arm--right {
+  transform-origin: 52px 150px;
+}
+.panda__arm--right {
+  transform-origin: 148px 150px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panda,
+  .panda * {
+    animation: none !important;
+  }
+}
