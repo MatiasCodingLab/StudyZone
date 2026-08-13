@@ -81,7 +81,62 @@ button, input {
 .app-footer {
   text-align: center;
   padding: 10px 20px 18px;
-  font-size: 0.82rem;
+  font-size: 0.95rem;
+}
+
+.app-footer__author {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.app-footer__author:hover {
+  background: var(--color-primary-light);
+  transform: translateY(-1px);
+}
+
+.app-footer__author-label {
+  color: var(--color-muted);
+}
+
+.author-page {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 18px 0 34px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.author-page__portrait-wrap {
+  width: min(100%, 520px);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(145deg, #5dd7ef, #f5bd59 58%, #b96b37);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.author-page__portrait {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.author-page__bio {
+  max-width: 500px;
+  margin: 0 0 8px;
+  color: var(--color-muted);
+  font-size: 1.15rem;
+  line-height: 1.6;
 }
 
 .gear-button {

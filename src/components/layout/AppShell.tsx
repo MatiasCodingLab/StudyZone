@@ -32,7 +32,11 @@ export function AppShell({ children }: AppShellProps) {
         <div className="container">{children}</div>
       </main>
       <footer className="app-footer">
-        <span className="muted">Originally created by <strong>Matias</strong> 🐼</span>
+        <Link className="app-footer__author" to="/author">
+          <span className="app-footer__author-label">Originally created by</span>
+          <strong>Matias</strong>
+          <span aria-hidden="true">🐼</span>
+        </Link>
       </footer>
     </div>
   );

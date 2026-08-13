@@ -5,6 +5,10 @@ and study content fully customizable by a parent.
 
 > Originally created by **Matias**. 🐼
 
+Click the creator credit at the bottom of the app to visit Matias's author page. The page includes his portrait and bio.
+The portrait is kept as a local file at `public/matias.jpeg`, so it works offline and does not depend on an external image
+host.
+
 It works completely offline in the browser: **no backend, no login, no external API, and no database.** Everything is
 saved right on the device using the browser's `localStorage`, and the whole app can be hosted for free on
 **GitHub Pages**.

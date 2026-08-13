@@ -6,6 +6,7 @@ import { PracticeSetupScreen } from './features/game/PracticeSetupScreen';
 import { QuizScreen } from './features/game/QuizScreen';
 import { AdminGate } from './features/admin/AdminGate';
 import { WelcomeScreen } from './features/onboarding/WelcomeScreen';
+import { AuthorPage } from './features/author/AuthorPage';
 
 function AppRoutes() {
   const { preferences } = useAppState();
@@ -14,7 +15,7 @@ function AppRoutes() {
   // Ask for the student's name once, up front, before any practicing starts -
   // but never block access to the Parent / Admin area.
   const needsOnboarding = preferences.profile.name.trim().length === 0;
-  if (needsOnboarding && !location.pathname.startsWith('/admin')) {
+  if (needsOnboarding && !location.pathname.startsWith('/admin') && location.pathname !== '/author') {
     return <WelcomeScreen />;
   }
 
@@ -24,6 +25,7 @@ function AppRoutes() {
       <Route path="/practice/:regionId" element={<PracticeSetupScreen />} />
       <Route path="/practice/:regionId/play" element={<QuizScreen />} />
       <Route path="/admin" element={<AdminGate />} />
+      <Route path="/author" element={<AuthorPage />} />
     </Routes>
   );
 }
