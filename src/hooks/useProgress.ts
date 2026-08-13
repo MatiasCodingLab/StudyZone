@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import type { ProgressData, SessionSummary } from '../types';
-import { loadProgress, recordSessionSummary, saveProgress } from '../storage/progressStore';
+import { loadProgress, migrateProgress, recordSessionSummary, saveProgress } from '../storage/progressStore';
 
 export function useProgress() {
   const [progress, setProgress] = useState<ProgressData>(() => loadProgress());
@@ -14,8 +14,9 @@ export function useProgress() {
   }, []);
 
   const replaceProgress = useCallback((next: ProgressData) => {
-    saveProgress(next);
-    setProgress(next);
+    const migrated = migrateProgress(next);
+    saveProgress(migrated);
+    setProgress(migrated);
   }, []);
 
   return { progress, addSessionSummary, replaceProgress };

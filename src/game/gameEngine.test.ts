@@ -83,4 +83,12 @@ describe('gameEngine', () => {
     session = recordAnswer(session, 'correct', 2000, true);
     expect(session.attempts.a[0].withinTarget).toBe(true);
   });
+
+  it('keeps the same retry behavior and direction metadata in Capital to State mode', () => {
+    let session = createSession(['a', 'b', 'c'], 'capital-to-state', identityShuffle);
+    expect(session.direction).toBe('capital-to-state');
+    session = recordAnswer(session, 'skip', 1000, null);
+    expect(session.masteredIds).toEqual([]);
+    expect(session.queue).toEqual(['b', 'c', 'a']);
+  });
 });

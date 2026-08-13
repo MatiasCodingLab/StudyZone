@@ -1,5 +1,9 @@
 import { useAppState } from '../../state/AppStateContext';
 import { getEnabledStatesForRegion, findStateById } from '../../game/selectors';
+import type { QuizDirection } from '../../types';
+import { quizDirectionLabel } from '../../game/quizDirection';
+
+const DIRECTIONS: QuizDirection[] = ['state-to-capital', 'capital-to-state'];
 
 function formatDate(ts: number | null): string {
   if (!ts) return 'Not practiced yet';
@@ -15,17 +19,7 @@ export function ProgressDashboard() {
       <h3>{preferences.profile.name} — Practice Overview</h3>
 
       {regions.map((region) => {
-        const regionProgress = progress.regions[region.id];
         const totalStates = getEnabledStatesForRegion(config, region.id).length;
-        const firstTryAccuracy = regionProgress && regionProgress.sessionsCount > 0
-          ? Math.round((regionProgress.correctFirstTryTotal / (regionProgress.sessionsCount * Math.max(totalStates, 1))) * 100)
-          : null;
-        const topMisses = regionProgress
-          ? Object.entries(regionProgress.missedCounts)
-              .filter(([, count]) => count > 0)
-              .sort((a, b) => b[1] - a[1])
-              .slice(0, 5)
-          : [];
 
         return (
           <div className="card stack" key={region.id} style={{ gap: 10 }}>
@@ -34,10 +28,21 @@ export function ProgressDashboard() {
               <span className="muted">{totalStates} states</span>
             </div>
 
-            {!regionProgress ? (
-              <p className="muted">Not practiced yet.</p>
-            ) : (
-              <>
+            {DIRECTIONS.map((direction) => {
+              const regionProgress = progress.regions[region.id]?.[direction];
+              const firstTryAccuracy = regionProgress && regionProgress.sessionsCount > 0
+                ? Math.round((regionProgress.correctFirstTryTotal / (regionProgress.sessionsCount * Math.max(totalStates, 1))) * 100)
+                : null;
+              const topMisses = regionProgress
+                ? Object.entries(regionProgress.missedCounts).filter(([, count]) => count > 0).sort((a, b) => b[1] - a[1]).slice(0, 5)
+                : [];
+
+              return <div className="direction-progress" key={direction}>
+                <strong>{quizDirectionLabel(direction)}</strong>
+                {!regionProgress || regionProgress.sessionsCount === 0 ? (
+                  <p className="muted">Not practiced yet.</p>
+                ) : (
+                  <>
                 <div className="row-wrap">
                   <span className="pill">Sessions: {regionProgress.sessionsCount}</span>
                   {firstTryAccuracy !== null && <span className="pill">First Try: {firstTryAccuracy}%</span>}
@@ -74,8 +79,10 @@ export function ProgressDashboard() {
                     </div>
                   </div>
                 )}
-              </>
-            )}
+                  </>
+                )}
+              </div>;
+            })}
           </div>
         );
       })}

@@ -4,6 +4,8 @@
 //                 possible at least 2 other states are asked first.
 // Kept dependency-free and side-effect-free so it is easy to unit test.
 
+import type { QuizDirection } from '../types';
+
 export type AnswerOutcome = 'correct' | 'wrong' | 'skip';
 
 export interface AttemptRecord {
@@ -13,6 +15,7 @@ export interface AttemptRecord {
 }
 
 export interface GameEngineState {
+  direction: QuizDirection;
   /** Ids still queued to be asked (may include ids returning from a miss). */
   queue: string[];
   /** Ids the student has answered correctly this session. */
@@ -36,10 +39,17 @@ function shuffle<T>(items: T[]): T[] {
   return result;
 }
 
-export function createSession(stateIds: string[], shuffleFn: <T>(items: T[]) => T[] = shuffle): GameEngineState {
-  const queue = shuffleFn(stateIds);
+export function createSession(
+  stateIds: string[],
+  directionOrShuffle: QuizDirection | (<T>(items: T[]) => T[]) = 'state-to-capital',
+  shuffleFn: <T>(items: T[]) => T[] = shuffle,
+): GameEngineState {
+  const direction = typeof directionOrShuffle === 'function' ? 'state-to-capital' : directionOrShuffle;
+  const activeShuffle = typeof directionOrShuffle === 'function' ? directionOrShuffle : shuffleFn;
+  const queue = activeShuffle(stateIds);
   const [currentId, ...rest] = queue;
   return {
+    direction,
     queue: rest,
     masteredIds: [],
     currentId: currentId ?? null,

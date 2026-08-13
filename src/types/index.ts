@@ -54,6 +54,8 @@ export interface PreferencesData {
   lastStrict: boolean;
 }
 
+export type QuizDirection = 'state-to-capital' | 'capital-to-state';
+
 export interface MissedEntry {
   stateId: string;
   state: string;
@@ -63,6 +65,7 @@ export interface MissedEntry {
 export interface SessionSummary {
   regionId: string;
   regionName: string;
+  direction: QuizDirection;
   timestamp: number;
   totalStates: number;
   firstTryCount: number;
@@ -87,8 +90,8 @@ export interface RegionProgress {
 
 export interface ProgressData {
   schemaVersion: number;
-  regions: Record<string, RegionProgress>;
-  recentMissedStateIds: string[];
+  regions: Record<string, Record<QuizDirection, RegionProgress>>;
+  recentMissedStateIds: Record<QuizDirection, string[]>;
 }
 
 export interface FullBackup {

@@ -1,8 +1,10 @@
 import { useMemo, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useAppState } from '../../state/AppStateContext';
 import { getAllEnabledStates, getEnabledStatesForRegion } from '../../game/selectors';
 import { resolveRegionTimer } from '../../storage/preferencesStore';
+import type { QuizDirection } from '../../types';
+import { quizDirectionLabel } from '../../game/quizDirection';
 
 const TIMER_OPTIONS: { value: number | 'none'; big: string; label: string }[] = [
   { value: 'none', big: 'No Timer', label: 'Untimed' },
@@ -15,6 +17,7 @@ const TIMER_OPTIONS: { value: number | 'none'; big: string; label: string }[] = 
 
 export function PracticeSetupScreen() {
   const { regionId = '' } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const { config, preferences, setRegionTimer, progress } = useAppState();
 
@@ -34,8 +37,11 @@ export function PracticeSetupScreen() {
   );
   const [customError, setCustomError] = useState<string | null>(null);
   const [strict, setStrict] = useState(resolved.strict);
+  const [direction, setDirection] = useState<QuizDirection>(
+    () => (location.state as { direction?: QuizDirection } | null)?.direction ?? 'state-to-capital',
+  );
 
-  const regionProgress = progress.regions[regionId];
+  const regionProgress = progress.regions[regionId]?.[direction];
   const enabledIds = new Set(states.map((s) => s.id));
   const missedStateIds = regionProgress
     ? Object.keys(regionProgress.missedCounts).filter((id) => regionProgress.missedCounts[id] > 0 && enabledIds.has(id))
@@ -65,7 +71,7 @@ export function PracticeSetupScreen() {
     if (selection === 'custom' && !validateCustom(customValue)) return;
     const timerSeconds = getTimerSecondsValue();
     setRegionTimer(regionId, timerSeconds, strict);
-    navigate(`/practice/${regionId}/play`, { state: { timerSeconds, strict, mode } });
+    navigate(`/practice/${regionId}/play`, { state: { timerSeconds, strict, mode, direction } });
   }
 
   if (states.length === 0) {
@@ -86,6 +92,29 @@ export function PracticeSetupScreen() {
         <span className="eyebrow">Practice Setup</span>
         <h1>{regionName}</h1>
         <p className="muted">{states.length} states</p>
+      </div>
+
+      <div className="card stack" style={{ gap: 14 }}>
+        <h3>Quiz Direction</h3>
+        <div className="direction-choice-grid">
+          <button
+            type="button"
+            className={`direction-choice ${direction === 'state-to-capital' ? 'is-selected' : ''}`}
+            onClick={() => setDirection('state-to-capital')}
+          >
+            <strong>State → Capital</strong>
+            <span>California → Sacramento</span>
+          </button>
+          <button
+            type="button"
+            className={`direction-choice ${direction === 'capital-to-state' ? 'is-selected' : ''}`}
+            onClick={() => setDirection('capital-to-state')}
+          >
+            <strong>Capital → State</strong>
+            <span>Sacramento → California</span>
+          </button>
+        </div>
+        <p className="muted" style={{ margin: 0 }}>Selected: {quizDirectionLabel(direction)}</p>
       </div>
 
       <div className="card stack" style={{ gap: 14 }}>

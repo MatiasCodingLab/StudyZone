@@ -11,7 +11,8 @@ import {
   type GameEngineState,
 } from '../../game/gameEngine';
 import { checkAnswer } from '../../utils/answerMatching';
-import type { MissedEntry, SessionSummary } from '../../types';
+import type { MissedEntry, QuizDirection, SessionSummary } from '../../types';
+import { getQuizPrompt, oppositeQuizDirection, quizDirectionLabel } from '../../game/quizDirection';
 import { useRecallTimer } from '../../hooks/useRecallTimer';
 import { Panda, type PandaMood } from '../../components/mascot/Panda';
 import { PANDA_TAP_MESSAGES, STREAK_MESSAGES } from '../../components/mascot/pandaMessages';
@@ -21,6 +22,7 @@ interface LocationState {
   timerSeconds: number | null;
   strict: boolean;
   mode: 'normal' | 'missed';
+  direction: QuizDirection;
 }
 
 type Phase = 'asking' | 'feedback' | 'complete';
@@ -60,6 +62,7 @@ function buildSummary(session: GameEngineState, ids: string[], config: ReturnTyp
   return {
     regionId,
     regionName,
+    direction: session.direction,
     timestamp: Date.now(),
     totalStates: ids.length,
     firstTryCount,
@@ -78,6 +81,7 @@ export function QuizScreen() {
   const { config, preferences, progress, addSessionSummary } = useAppState();
 
   const locationState = location.state as LocationState | null;
+  const direction = locationState?.direction ?? 'state-to-capital';
   const isAll = regionId === 'all';
   const region = config.regions.find((r) => r.id === regionId);
   const regionName = isAll ? 'All Regions' : region?.name ?? 'Practice';
@@ -86,7 +90,7 @@ export function QuizScreen() {
 
   const stateIds = useMemo(() => {
     if (locationState?.mode === 'missed') {
-      const regionProgress = progress.regions[regionId];
+      const regionProgress = progress.regions[regionId]?.[direction];
       const enabledIds = new Set(allRegionStates.map((s) => s.id));
       const missedIds = regionProgress
         ? Object.keys(regionProgress.missedCounts).filter((id) => regionProgress.missedCounts[id] > 0 && enabledIds.has(id))
@@ -95,12 +99,12 @@ export function QuizScreen() {
     }
     return allRegionStates.map((s) => s.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [direction]);
 
   const timerSeconds = locationState?.timerSeconds ?? null;
   const strict = locationState?.strict ?? false;
 
-  const [session, setSession] = useState<GameEngineState>(() => createSession(stateIds));
+  const [session, setSession] = useState<GameEngineState>(() => createSession(stateIds, direction));
   const [phase, setPhase] = useState<Phase>('asking');
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [inputValue, setInputValue] = useState('');
@@ -189,7 +193,7 @@ export function QuizScreen() {
 
       const updatedSession = recordAnswer(session, outcome, elapsedMs, withinTarget);
       setSession(updatedSession);
-      advanceAfterFeedback(updatedSession, outcome === 'correct' ? 2750 : 3350);
+      advanceAfterFeedback(updatedSession, outcome === 'correct' ? 1550 : 2150);
     },
     [phase, session, config, timerSeconds, advanceAfterFeedback],
   );
@@ -204,7 +208,7 @@ export function QuizScreen() {
 
   const handleSubmitTyped = () => {
     if (!currentState || inputValue.trim().length === 0) return;
-    const result = checkAnswer(inputValue, currentState.capital, config.settings.fuzzyMatchingEnabled);
+    const result = checkAnswer(inputValue, getQuizPrompt(currentState, direction).expectedAnswer, config.settings.fuzzyMatchingEnabled);
     submitOutcome(result.correct ? 'correct' : 'wrong', { wasFuzzy: result.wasFuzzyMatch });
   };
 
@@ -248,14 +252,17 @@ export function QuizScreen() {
         onPracticeAgain={() =>
           navigate(`/practice/${regionId}/play`, {
             replace: true,
-            state: { timerSeconds, strict, mode: 'normal' },
+            state: { timerSeconds, strict, mode: 'normal', direction },
           })
         }
         onPracticeMissed={() =>
           navigate(`/practice/${regionId}/play`, {
             replace: true,
-            state: { timerSeconds, strict, mode: 'missed' },
+            state: { timerSeconds, strict, mode: 'missed', direction },
           })
+        }
+        onSwitchDirection={() =>
+          navigate(`/practice/${regionId}`, { state: { direction: oppositeQuizDirection(direction) } })
         }
         onChooseAnother={() => navigate('/')}
         onAllRegions={regionId !== 'all' ? () => navigate('/practice/all') : undefined}
@@ -278,7 +285,7 @@ export function QuizScreen() {
     <div className="quiz-layout" style={{ paddingTop: 8 }}>
       <div className="quiz-header">
         <div>
-          <span className="eyebrow">{regionName.toUpperCase()}</span>
+          <span className="eyebrow">{regionName.toUpperCase()} — {quizDirectionLabel(direction)}</span>
           <div className="row-wrap" style={{ marginTop: 4 }}>
             <strong>
               {masteredCount} / {totalCount} mastered
@@ -324,8 +331,8 @@ export function QuizScreen() {
           <div className="pill pill-warning">Time!</div>
         )}
 
-        <span className="quiz-state-name">{currentState.state}</span>
-        <span className="quiz-prompt">What is the capital?</span>
+        <span className="quiz-state-name">{getQuizPrompt(currentState, direction).displayQuestion}</span>
+        <span className="quiz-prompt">{getQuizPrompt(currentState, direction).question}</span>
 
         {phase === 'asking' && (
           <>
@@ -333,7 +340,7 @@ export function QuizScreen() {
               ref={inputRef}
               className="input-large"
               type="text"
-              placeholder="Type the capital..."
+              placeholder={getQuizPrompt(currentState, direction).inputPlaceholder}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -359,7 +366,9 @@ export function QuizScreen() {
               {feedback.outcome === 'correct' ? 'Correct!' : feedback.outcome === 'skip' ? 'Missed one!' : 'Not quite!'}
             </div>
             <div className={feedback.outcome === 'correct' ? undefined : 'feedback-answer'}>
-              {feedback.state} → {feedback.capital}
+              {direction === 'capital-to-state'
+                ? `${feedback.capital} → ${feedback.state}`
+                : `${feedback.state} → ${feedback.capital}`}
             </div>
             {feedback.outcome !== 'correct' && <div className="muted">You'll see this one again!</div>}
           </div>

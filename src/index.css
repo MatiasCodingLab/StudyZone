@@ -413,6 +413,42 @@ h1, h2, h3 {
   font-weight: 600;
 }
 
+.direction-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.direction-choice {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: flex-start;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  color: var(--color-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.direction-choice span {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.direction-choice.is-selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.direction-progress {
+  border-top: 1px solid var(--color-border);
+  padding-top: 12px;
+}
+
 .toggle-row {
   display: flex;
   align-items: center;

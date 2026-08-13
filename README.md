@@ -51,6 +51,14 @@ parent operates the game. The learning method is **active recall with spaced rep
 A friendly, original Panda mascot reacts along the way - and a parent can always step in with **Mark Correct** /
 **Mark Missed** buttons to run a fully verbal quiz session.
 
+Each Practice Setup also offers two quiz directions:
+
+- **State → Capital**: see a state such as California and recall Sacramento.
+- **Capital → State**: see a capital such as Sacramento and recall California.
+
+These directions share the same state/capital data and retry behavior, but progress and previous misses are tracked
+separately. Existing saved progress is automatically treated as State → Capital.
+
 ## Personalizing it for your child
 
 The very first time the game is opened, it asks a simple question: **"What's your name?"** Whatever is typed there is

@@ -6,6 +6,7 @@ interface EndOfRegionSummaryProps {
   summary: SessionSummary;
   onPracticeAgain: () => void;
   onPracticeMissed: () => void;
+  onSwitchDirection: () => void;
   onChooseAnother: () => void;
   onAllRegions?: () => void;
   showConfetti: boolean;
@@ -17,6 +18,7 @@ export function EndOfRegionSummary({
   summary,
   onPracticeAgain,
   onPracticeMissed,
+  onSwitchDirection,
   onChooseAnother,
   onAllRegions,
   showConfetti,
@@ -81,6 +83,9 @@ export function EndOfRegionSummary({
             Practice Missed States
           </button>
         )}
+        <button type="button" className="btn btn-secondary btn-large" onClick={onSwitchDirection}>
+          Switch Quiz Direction
+        </button>
         <button type="button" className="btn btn-ghost" onClick={onChooseAnother}>
           Choose Another Region
         </button>
