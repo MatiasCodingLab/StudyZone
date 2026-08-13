@@ -104,6 +104,15 @@ button, input {
   color: var(--color-muted);
 }
 
+.app-footer__author-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 34%;
+  border: 2px solid var(--color-primary-light);
+}
+
 .author-page {
   max-width: 620px;
   margin: 0 auto;

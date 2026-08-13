@@ -35,7 +35,7 @@ export function AppShell({ children }: AppShellProps) {
         <Link className="app-footer__author" to="/author">
           <span className="app-footer__author-label">Originally created by</span>
           <strong>Matias</strong>
-          <span aria-hidden="true">🐼</span>
+          <img className="app-footer__author-thumb" src="./matias.jpeg" alt="" />
         </Link>
       </footer>
     </div>
