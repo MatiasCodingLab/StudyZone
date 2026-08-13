@@ -43,12 +43,12 @@ describe('backup import/export', () => {
 
   it('round-trips a full backup including progress and preferences', () => {
     const config = createDefaultConfig();
-    const prefs = loadPreferences();
+    const prefs = { ...loadPreferences(), profile: { name: 'Alex', mascotId: 'panda' as const } };
     const progress = loadProgress();
     const backup = buildFullBackup(config, prefs, progress);
     const parsed = parseFullBackup(JSON.stringify(backup));
     expect(parsed.ok).toBe(true);
-    expect(parsed.data?.preferences.profile.name).toBe('Matias');
+    expect(parsed.data?.preferences.profile.name).toBe('Alex');
   });
 
   it('rejects invalid JSON with a useful error message', () => {

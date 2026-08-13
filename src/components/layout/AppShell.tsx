@@ -1,17 +1,22 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppState } from '../../state/AppStateContext';
 
 interface AppShellProps {
   children: ReactNode;
 }
 
 export function AppShell({ children }: AppShellProps) {
+  const { preferences } = useAppState();
+  const studentName = preferences.profile.name.trim();
+  const brandLabel = studentName ? `${studentName}'s Capitals Quest` : 'Capitals Quest';
+
   return (
     <div className="app-shell">
       <header className="app-header">
         <Link to="/" className="app-header__brand">
           <span aria-hidden="true">🐼</span>
-          <span>Matias's Capitals Game</span>
+          <span>{brandLabel}</span>
         </Link>
         <Link to="/admin" className="gear-button" aria-label="Parent / Admin settings" title="Parent / Admin">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -26,6 +31,9 @@ export function AppShell({ children }: AppShellProps) {
       <main className="app-main">
         <div className="container">{children}</div>
       </main>
+      <footer className="app-footer">
+        <span className="muted">Originally created by <strong>Matias</strong> 🐼</span>
+      </footer>
     </div>
   );
 }

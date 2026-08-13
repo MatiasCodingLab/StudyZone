@@ -63,17 +63,17 @@ export function BackupPanel() {
         <button
           type="button"
           className="btn btn-secondary"
-          onClick={() => downloadJSON('matias-capitals-config.json', buildConfigExport(config))}
+          onClick={() => downloadJSON('capitals-quest-config.json', buildConfigExport(config))}
         >
           Export Configuration
         </button>
         <p className="muted">
-          <strong>Export Full Backup</strong> also includes Matias's profile, progress, and settings.
+          <strong>Export Full Backup</strong> also includes the student's profile, progress, and settings.
         </p>
         <button
           type="button"
           className="btn btn-secondary"
-          onClick={() => downloadJSON('matias-capitals-full-backup.json', buildFullBackup(config, preferences, progress))}
+          onClick={() => downloadJSON('capitals-quest-full-backup.json', buildFullBackup(config, preferences, progress))}
         >
           Export Full Backup
         </button>

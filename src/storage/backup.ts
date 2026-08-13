@@ -37,7 +37,7 @@ export function parseConfigExport(jsonText: string): ParseResult<ConfigExport> {
   }
   const v = parsed as Partial<ConfigExport>;
   if (v.kind !== 'config' || !v.config || !isValidConfig(v.config)) {
-    return { ok: false, error: 'This file does not look like a Matias Capitals Game configuration export.' };
+    return { ok: false, error: 'This file does not look like a Capitals Quest configuration export.' };
   }
   return { ok: true, data: v as ConfigExport };
 }
@@ -54,7 +54,7 @@ export function parseFullBackup(jsonText: string): ParseResult<FullBackup> {
   }
   const v = parsed as Partial<FullBackup>;
   if (v.kind !== 'full-backup' || !v.config || !v.preferences || !v.progress || !isValidConfig(v.config)) {
-    return { ok: false, error: 'This file does not look like a Matias Capitals Game full backup.' };
+    return { ok: false, error: 'This file does not look like a Capitals Quest full backup.' };
   }
   return { ok: true, data: v as FullBackup };
 }

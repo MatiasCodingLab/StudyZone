@@ -7,7 +7,7 @@ export const DEFAULT_TIMER_SECONDS = 8;
 export function createDefaultPreferences(): PreferencesData {
   return {
     schemaVersion: PREFERENCES_SCHEMA_VERSION,
-    profile: { name: 'Matias', mascotId: 'panda' },
+    profile: { name: '', mascotId: 'panda' },
     regionTimerSettings: {},
     lastTimerSeconds: DEFAULT_TIMER_SECONDS,
     lastStrict: false,

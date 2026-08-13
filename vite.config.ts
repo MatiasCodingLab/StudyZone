@@ -15,9 +15,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons/*.svg'],
       manifest: {
-        name: "Matias's Capitals Game",
-        short_name: 'Capitals Game',
-        description: 'A friendly practice game for U.S. state capitals.',
+        name: 'Capitals Quest',
+        short_name: 'Capitals Quest',
+        description: 'A friendly practice game for any kid learning U.S. state capitals.',
         theme_color: '#4f46e5',
         background_color: '#f4f6ff',
         display: 'standalone',

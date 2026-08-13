@@ -52,7 +52,7 @@ export function SettingsPanel() {
         />
         <ToggleRow
           label="All Regions Challenge"
-          description="Lets Matias combine every enabled region into one big challenge."
+          description="Lets your child combine every enabled region into one big challenge."
           checked={config.settings.allRegionsChallengeEnabled}
           onChange={(v) => setSetting('allRegionsChallengeEnabled', v)}
         />

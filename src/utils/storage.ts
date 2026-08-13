@@ -3,9 +3,9 @@
 // of crashing. Any corrupted/unreadable JSON silently falls back to defaults.
 
 export const STORAGE_KEYS = {
-  config: 'matias-capitals:config:v1',
-  preferences: 'matias-capitals:preferences:v1',
-  progress: 'matias-capitals:progress:v1',
+  config: 'capitals-quest:config:v1',
+  preferences: 'capitals-quest:preferences:v1',
+  progress: 'capitals-quest:progress:v1',
 } as const;
 
 export function loadJSON<T>(key: string, createDefault: () => T, isValid?: (value: unknown) => value is T): T {

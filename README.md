@@ -1,7 +1,9 @@
-# Matias's Capitals Game
+# Capitals Quest
 
-A friendly, personalized web game for practicing U.S. state capitals - built for Matias, but easy for any parent to
-customize and run.
+A friendly, personalized web game for practicing U.S. state capitals - built to work for **any kid**, with their name
+and study content fully customizable by a parent.
+
+> Originally created by **Matias**. 🐼
 
 It works completely offline in the browser: **no backend, no login, no external API, and no database.** Everything is
 saved right on the device using the browser's `localStorage`, and the whole app can be hosted for free on
@@ -15,24 +17,25 @@ where you can!
 ## Table of Contents
 
 1. [What the game does](#what-the-game-does)
-2. [Technology used](#technology-used)
-3. [Running it on your own computer](#running-it-on-your-own-computer)
-4. [How to use the Parent / Admin area](#how-to-use-the-parent--admin-area)
-5. [Customizing Practice Regions](#customizing-practice-regions)
-6. [Changing timer settings](#changing-timer-settings)
-7. [Export / Import configuration and backups](#export--import-configuration-and-backups)
-8. [Deploying Matias's Capitals Game to GitHub Pages](#deploying-matiass-capitals-game-to-github-pages)
-9. [Updating the game later](#updating-the-game-later)
-10. [Setting it up on Matias's laptop](#setting-it-up-on-matiass-laptop)
-11. [Installing as an app (PWA)](#installing-as-an-app-pwa)
-12. [Progress is stored separately on each device](#progress-is-stored-separately-on-each-device)
-13. [Troubleshooting](#troubleshooting)
+2. [Personalizing it for your child](#personalizing-it-for-your-child)
+3. [Technology used](#technology-used)
+4. [Running it on your own computer](#running-it-on-your-own-computer)
+5. [How to use the Parent / Admin area](#how-to-use-the-parent--admin-area)
+6. [Customizing Practice Regions](#customizing-practice-regions)
+7. [Changing timer settings](#changing-timer-settings)
+8. [Export / Import configuration and backups](#export--import-configuration-and-backups)
+9. [Deploying Capitals Quest to GitHub Pages](#deploying-capitals-quest-to-github-pages)
+10. [Updating the game later](#updating-the-game-later)
+11. [Setting it up on a child's laptop](#setting-it-up-on-a-childs-laptop)
+12. [Installing as an app (PWA)](#installing-as-an-app-pwa)
+13. [Progress is stored separately on each device](#progress-is-stored-separately-on-each-device)
+14. [Troubleshooting](#troubleshooting)
 
 ---
 
 ## What the game does
 
-Matias sees one U.S. state at a time and tries to recall its capital - by typing it, or by saying it out loud while a
+A child sees one U.S. state at a time and tries to recall its capital - by typing it, or by saying it out loud while a
 parent operates the game. The learning method is **active recall with spaced repetition of missed answers**:
 
 - ✅ **Correct** → that state is done for this round (mastered).
@@ -42,6 +45,21 @@ parent operates the game. The learning method is **active recall with spaced rep
 
 A friendly, original Panda mascot reacts along the way - and a parent can always step in with **Mark Correct** /
 **Mark Missed** buttons to run a fully verbal quiz session.
+
+## Personalizing it for your child
+
+The very first time the game is opened, it asks a simple question: **"What's your name?"** Whatever is typed there is
+used throughout the rest of the experience - on the Home screen greeting, the browser tab/app title, and the
+end-of-region celebration messages.
+
+You (a parent) can change this name at any time:
+
+1. Open **Parent / Admin** (the small gear icon).
+2. Go to the **Profile & Settings** tab.
+3. Update the **Student name** field - it takes effect immediately everywhere in the app.
+
+This makes it easy to reuse the exact same project for multiple kids (just export/import separate configurations or
+run it on separate devices/browser profiles - see [Progress is stored separately on each device](#progress-is-stored-separately-on-each-device)).
 
 ## Technology used
 
@@ -77,8 +95,8 @@ Other useful commands:
 
 ## How to use the Parent / Admin area
 
-Click the small **gear icon** in the top-right corner of the app. To avoid Matias entering it by accident, you must
-either:
+Click the small **gear icon** in the top-right corner of the app. To avoid a curious kid entering it by accident, you
+must either:
 
 - **Press and hold** the "Hold for Parent / Admin" button for about 2 seconds, or
 - Use the **"Can't hold the button? Tap here instead"** link, which asks you to confirm.
@@ -91,7 +109,7 @@ Inside, there are five tabs:
   entries; restore the original defaults.
 - **Practice Regions** - rename, enable/disable, reorder, add, or delete Practice Regions, and move any state to a
   different region.
-- **Profile & Settings** - change Matias's display name and toggle Panda animations/sounds, celebration effects,
+- **Profile & Settings** - change the student's display name and toggle Panda animations/sounds, celebration effects,
   confetti, fuzzy spelling tolerance, and the All Regions Challenge.
 - **Import / Export** - back up or restore configuration and progress (see below).
 - **Progress Dashboard** - a lightweight, encouraging overview of how practice is going per region.
@@ -114,24 +132,24 @@ the Home screen immediately shows the updated count.
 
 ## Changing timer settings
 
-When Matias picks a region, he (or a parent) sees a **Practice Setup** screen before the quiz starts:
+When a region is picked, the child (or a parent) sees a **Practice Setup** screen before the quiz starts:
 
 - **Recall Timer** - `No Timer`, `10 sec - Learn`, `8 sec - Practice`, `5 sec - Quick Recall`, `4 sec - Fast Recall`,
   `3 sec - Speed Challenge`, or `Custom` (any whole number from 1-30 seconds).
 - The very first time, the timer defaults to **8 seconds**. After that, the **last timer used for that specific
   region** is remembered automatically - so "West" and "Northeast" can have different remembered speeds.
-- **Strict Timer** (default **off**) - when off, running out of time just shows "Time!" but still lets Matias answer,
-  and simply records whether he was within the target time. When on, running out of time automatically counts the
-  state as missed, briefly shows the correct capital, and moves on.
+- **Strict Timer** (default **off**) - when off, running out of time just shows "Time!" but still lets the child
+  answer, and simply records whether they were within the target time. When on, running out of time automatically
+  counts the state as missed, briefly shows the correct capital, and moves on.
 
 ## Export / Import configuration and backups
 
 Found in **Parent / Admin → Import / Export**:
 
 - **Export Configuration** - saves states, capitals, and Practice Regions as a `.json` file. Use this to copy your
-  customized study content to another computer (like Matias's laptop).
-- **Export Full Backup** - everything in Configuration, **plus** Matias's profile, progress, timer preferences, and
-  recent misses. Use this to move the *entire* setup to another device.
+  customized study content to another computer (like a child's laptop).
+- **Export Full Backup** - everything in Configuration, **plus** the student's profile, progress, timer preferences,
+  and recent misses. Use this to move the *entire* setup to another device.
 - **Import Configuration** / **Import Full Backup** - choose a file or paste JSON text. The app checks that the data
   looks valid before doing anything, and always asks you to confirm before overwriting what's currently stored.
 - **Restore Defaults** (in the States & Capitals tab) - resets states, capitals, and regions back to the original
@@ -139,10 +157,10 @@ Found in **Parent / Admin → Import / Export**:
 
 ---
 
-## Deploying Matias's Capitals Game to GitHub Pages
+## Deploying Capitals Quest to GitHub Pages
 
-This is the important part for actually getting Matias his own link to play at. It only needs to be done once - after
-that, updates happen automatically every time you push a change (see [Updating the game later](#updating-the-game-later)).
+This is the important part for actually getting your child their own link to play at. It only needs to be done once -
+after that, updates happen automatically every time you push a change (see [Updating the game later](#updating-the-game-later)).
 
 ### 1. Create a GitHub account
 
@@ -153,7 +171,7 @@ if you already have one.
 
 A "repository" is just a project folder that lives on GitHub. On GitHub, click **New repository** and:
 
-- Give it a name, for example: `matias-capitals-game`
+- Give it a name, for example: `capitals-quest`
 - Set the visibility to **Public**. (GitHub Pages is free for public repositories on a personal account, which covers
   the vast majority of parents using this project. If your account has GitHub Pages enabled for private repositories
   through a paid plan, that also works fine - just note this project does not require any paid features.)
@@ -181,15 +199,15 @@ Open a terminal in this project's folder and run:
 ```bash
 git init
 git add .
-git commit -m "Initial Matias capitals game"
+git commit -m "Initial Capitals Quest project"
 git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/matias-capitals-game.git
+git remote add origin https://github.com/YOUR-USERNAME/capitals-quest.git
 git push -u origin main
 ```
 
-> Replace `https://github.com/YOUR-USERNAME/matias-capitals-game.git` with **your own** repository's URL - this is
-> just an example format, not a real link. You can copy your repository's exact URL from the green **Code** button on
-> its GitHub page.
+> Replace `https://github.com/YOUR-USERNAME/capitals-quest.git` with **your own** repository's URL - this is just an
+> example format, not a real link. You can copy your repository's exact URL from the green **Code** button on its
+> GitHub page.
 
 ### 4. Enable GitHub Pages
 
@@ -214,13 +232,14 @@ https://USERNAME.github.io/REPOSITORY-NAME/
 
 (This is only an example format - your actual URL will use your GitHub username and the repository name you chose.)
 
-### 7. Open it on Matias's laptop
+### 7. Open it on a child's laptop
 
-On Matias's laptop, simply:
+On the child's laptop, simply:
 
 1. Open Microsoft Edge or Google Chrome.
 2. Go to the GitHub Pages URL from Step 6.
-3. Bookmark the page so he can find it easily next time.
+3. Bookmark the page so it's easy to find next time.
+4. The first time it opens, it will ask for their name - see [Personalizing it for your child](#personalizing-it-for-your-child).
 
 ## Updating the game later
 
@@ -229,7 +248,7 @@ Whenever you (the parent) make a change to the app - like editing code, or updat
 1. **Save** your changes.
 2. **Commit** the changes (write a short description of what changed).
 3. **Push** to GitHub.
-4. GitHub Actions automatically rebuilds and redeploys the site - Matias keeps using the exact same URL.
+4. GitHub Actions automatically rebuilds and redeploys the site - everyone keeps using the exact same URL.
 
 #### Using GitHub Desktop
 
@@ -246,11 +265,11 @@ git commit -m "Update capitals game"
 git push
 ```
 
-> Note: everyday content changes (states, capitals, regions, timer defaults, profile name, etc.) don't require any of
-> this - those are made entirely inside the app's **Parent / Admin** area and saved to `localStorage` on that device.
-> You only need to commit and push when you change the **code itself**.
+> Note: everyday content changes (states, capitals, regions, timer defaults, the student's name, etc.) don't require
+> any of this - those are made entirely inside the app's **Parent / Admin** area and saved to `localStorage` on that
+> device. You only need to commit and push when you change the **code itself**.
 
-## Setting it up on Matias's laptop
+## Setting it up on a child's laptop
 
 1. Open the GitHub Pages URL in Microsoft Edge or Google Chrome (see Step 7 above).
 2. **Bookmark it**, so it's easy to find again.
@@ -267,14 +286,16 @@ In Microsoft Edge or Google Chrome, look for an **Install app** or **Install thi
 found either as an icon in the address bar, or under the browser's **⋮** / **...** menu. The exact wording and
 location can vary slightly between browser versions, but it's always somewhere near the address bar or main menu.
 
-Once installed, Matias gets a standalone app window and app icon, and the game continues to work (quizzes, timers,
+Once installed, the child gets a standalone app window and app icon, and the game continues to work (quizzes, timers,
 Panda, and local progress) even without an internet connection, as long as it's been opened successfully at least
 once while online. Fetching *updates* to the game (new code you've pushed) still requires an internet connection.
 
 ## Progress is stored separately on each device
 
-Because everything is saved with `localStorage`, **Matias's laptop and a parent's computer each have their own,
+Because everything is saved with `localStorage`, **a child's laptop and a parent's computer each have their own,
 completely separate copy** of settings, configuration, and progress. They do not automatically sync with each other.
+This also means the same project can be reused for multiple kids, each with their own name and progress, simply by
+using it on separate devices or separate browser profiles.
 
 To move your setup from one computer to another:
 
@@ -310,7 +331,7 @@ To move your setup from one computer to another:
 - If the game was installed as an app (PWA), close it completely and reopen it - it may need a moment to fetch the
   updated version in the background.
 
-### Matias's progress is missing
+### A child's progress is missing
 
 - Remember that progress is stored per device via `localStorage` - it does not appear on a different computer unless
   you specifically transfer it.
@@ -321,4 +342,7 @@ To move your setup from one computer to another:
 
 ---
 
-Made with 🐼 for Matias.
+Made with 🐼 for kids everywhere learning their state capitals.
+
+*Originally created by Matias.*
+

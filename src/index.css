@@ -78,6 +78,12 @@ button, input {
   margin: 0 auto;
 }
 
+.app-footer {
+  text-align: center;
+  padding: 10px 20px 18px;
+  font-size: 0.82rem;
+}
+
 .gear-button {
   width: 44px;
   height: 44px;
