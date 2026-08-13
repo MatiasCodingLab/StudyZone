@@ -189,7 +189,7 @@ export function QuizScreen() {
 
       const updatedSession = recordAnswer(session, outcome, elapsedMs, withinTarget);
       setSession(updatedSession);
-      advanceAfterFeedback(updatedSession, outcome === 'correct' ? 750 : 1350);
+      advanceAfterFeedback(updatedSession, outcome === 'correct' ? 2750 : 3350);
     },
     [phase, session, config, timerSeconds, advanceAfterFeedback],
   );
@@ -358,7 +358,7 @@ export function QuizScreen() {
             <div>
               {feedback.outcome === 'correct' ? 'Correct!' : feedback.outcome === 'skip' ? 'Missed one!' : 'Not quite!'}
             </div>
-            <div>
+            <div className={feedback.outcome === 'correct' ? undefined : 'feedback-answer'}>
               {feedback.state} → {feedback.capital}
             </div>
             {feedback.outcome !== 'correct' && <div className="muted">You'll see this one again!</div>}
