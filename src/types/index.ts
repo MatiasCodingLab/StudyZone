@@ -109,3 +109,45 @@ export interface ConfigExport {
   kind: 'config';
   config: AdminConfigData;
 }
+
+// --- Language Arts: shared reading-comprehension quiz architecture -------
+// Generic enough to be reused by future modules (Inference, Context Clues,
+// Author's Purpose, Summarizing, Vocabulary), not just Main Idea.
+
+export type ReadingQuestionDifficulty = 'easy' | 'grade-level' | 'challenge';
+
+/** Why a choice is right or wrong, used to drive the explanation shown after answering. */
+export type ReadingDistractorType = 'main-idea' | 'supporting-detail' | 'too-broad' | 'unsupported';
+
+export interface ReadingQuizChoice {
+  id: string;
+  text: string;
+  type: ReadingDistractorType;
+  feedback: string;
+}
+
+export interface ReadingQuizQuestion {
+  id: string;
+  difficulty: ReadingQuestionDifficulty;
+  passage: string;
+  question: string;
+  choices: ReadingQuizChoice[];
+  correctChoiceId: string;
+}
+
+export type QuizModeId = 'quick' | 'practice' | 'challenge';
+
+export interface ReadingQuizAttempt {
+  questionId: string;
+  choiceType: ReadingDistractorType;
+  correct: boolean;
+}
+
+/** Local, per-device progress for a single reading-skill module (e.g. Main Idea). */
+export interface ReadingSkillProgress {
+  schemaVersion: number;
+  attemptedCount: number;
+  correctCount: number;
+  recentQuestionIds: string[];
+  mistakeTypeCounts: Partial<Record<ReadingDistractorType, number>>;
+}

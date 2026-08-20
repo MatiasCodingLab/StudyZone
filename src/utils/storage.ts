@@ -6,6 +6,7 @@ export const STORAGE_KEYS = {
   config: 'capitals-quest:config:v1',
   preferences: 'capitals-quest:preferences:v1',
   progress: 'capitals-quest:progress:v1',
+  readingSkills: 'capitals-quest:reading-skills:v1',
 } as const;
 
 export function loadJSON<T>(key: string, createDefault: () => T, isValid?: (value: unknown) => value is T): T {

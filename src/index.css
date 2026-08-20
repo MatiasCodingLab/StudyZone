@@ -444,6 +444,31 @@ h1, h2, h3 {
   color: var(--color-primary-dark);
 }
 
+.quiz-choice {
+  width: 100%;
+}
+.quiz-choice.is-correct {
+  border-color: var(--color-success);
+  background: var(--color-success-light);
+  color: #14532d;
+}
+.quiz-choice.is-incorrect {
+  border-color: var(--color-danger);
+  background: #fde2e2;
+  color: #7f1d1d;
+}
+
+.quiz-feedback {
+  padding: 16px 18px;
+  border-left: 6px solid var(--color-primary);
+}
+.quiz-feedback--correct {
+  border-left-color: var(--color-success);
+}
+.quiz-feedback--incorrect {
+  border-left-color: var(--color-warning);
+}
+
 .direction-progress {
   border-top: 1px solid var(--color-border);
   padding-top: 12px;
