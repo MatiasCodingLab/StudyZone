@@ -79,7 +79,7 @@ export function PracticeSetupScreen() {
       <div className="card text-center">
         <h2>No states are enabled for {regionName} yet.</h2>
         <p className="muted">Ask a parent to enable some states in the Admin area.</p>
-        <button type="button" className="btn btn-secondary" onClick={() => navigate('/')}>
+        <button type="button" className="btn btn-secondary" onClick={() => navigate('/social-studies/states-capitals')}>
           Back Home
         </button>
       </div>
@@ -187,7 +187,7 @@ export function PracticeSetupScreen() {
             Practice Previous Misses ({missedStateIds.length})
           </button>
         )}
-        <button type="button" className="btn btn-ghost" onClick={() => navigate('/')}>
+        <button type="button" className="btn btn-ghost" onClick={() => navigate('/social-studies/states-capitals')}>
           Choose Another Region
         </button>
       </div>

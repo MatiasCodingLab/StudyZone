@@ -9,7 +9,7 @@ interface AppShellProps {
 export function AppShell({ children }: AppShellProps) {
   const { preferences } = useAppState();
   const studentName = preferences.profile.name.trim();
-  const brandLabel = studentName ? `${studentName}'s Capitals Quest` : 'Capitals Quest';
+  const brandLabel = studentName ? `${studentName}'s Study Guide` : '4th Grade Study Guide';
 
   return (
     <div className="app-shell">

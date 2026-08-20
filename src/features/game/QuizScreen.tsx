@@ -264,7 +264,7 @@ export function QuizScreen() {
         onSwitchDirection={() =>
           navigate(`/practice/${regionId}`, { state: { direction: oppositeQuizDirection(direction) } })
         }
-        onChooseAnother={() => navigate('/')}
+        onChooseAnother={() => navigate('/social-studies/states-capitals')}
         onAllRegions={regionId !== 'all' ? () => navigate('/practice/all') : undefined}
       />
     );

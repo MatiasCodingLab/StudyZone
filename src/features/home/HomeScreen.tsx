@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppState } from '../../state/AppStateContext';
 import { getRegionsWithCounts, getAllEnabledStates } from '../../game/selectors';
 import { Panda } from '../../components/mascot/Panda';
@@ -14,6 +14,9 @@ export function HomeScreen() {
 
   return (
     <div className="stack" style={{ gap: 28, paddingTop: 20 }}>
+      <Link to="/social-studies" className="btn btn-ghost" style={{ alignSelf: 'flex-start' }}>
+        ← Social Studies
+      </Link>
       <div className="text-center stack" style={{ gap: 6 }}>
         <Panda mood="idle" size={130} />
         <h1 style={{ fontSize: 'clamp(1.6rem, 4vw, 2.4rem)' }}>Hi {studentName}! What do you want to practice today?</h1>

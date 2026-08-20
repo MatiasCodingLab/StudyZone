@@ -17,7 +17,7 @@ describe('App onboarding gate', () => {
     render(<App />);
     fireEvent.change(screen.getByPlaceholderText('Type your name...'), { target: { value: 'Jamie' } });
     fireEvent.click(screen.getByRole('button', { name: "Let's Play!" }));
-    expect(screen.getByText(/Hi Jamie! What do you want to practice today\?/)).toBeInTheDocument();
+    expect(screen.getByText(/Hi Jamie! Welcome to your 4th Grade Study Guide\./)).toBeInTheDocument();
   });
 
   it('skips onboarding for a name already stored from a previous session', () => {
@@ -30,6 +30,6 @@ describe('App onboarding gate', () => {
     };
     window.localStorage.setItem(STORAGE_KEYS.preferences, JSON.stringify(prefs));
     render(<App />);
-    expect(screen.getByText(/Hi Riley! What do you want to practice today\?/)).toBeInTheDocument();
+    expect(screen.getByText(/Hi Riley! Welcome to your 4th Grade Study Guide\./)).toBeInTheDocument();
   });
 });
