@@ -10,7 +10,7 @@ beforeEach(() => {
 describe('App onboarding gate', () => {
   it('asks for a name before showing the Home screen', () => {
     render(<App />);
-    expect(screen.getByText('Welcome to Capitals Quest!')).toBeInTheDocument();
+    expect(screen.getByText('Welcome to Your 4th Grade Study Guide!')).toBeInTheDocument();
   });
 
   it('personalizes the Home screen once a name is set', () => {

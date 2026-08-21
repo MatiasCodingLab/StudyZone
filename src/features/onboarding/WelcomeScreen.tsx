@@ -23,7 +23,7 @@ export function WelcomeScreen() {
     <div className="stack text-center" style={{ gap: 22, paddingTop: 40, maxWidth: 440, margin: '0 auto' }}>
       <Panda mood="idle" size={140} />
       <div>
-        <h1>Welcome to Capitals Quest!</h1>
+        <h1>Welcome to Your 4th Grade Study Guide!</h1>
         <p className="muted">What's your name? We'll use it to cheer you on while you practice.</p>
       </div>
 
